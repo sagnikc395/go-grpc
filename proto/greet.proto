@@ -10,14 +10,11 @@ service GreetService{
    //here we define our rpcs 
    //normal requests / response cycle
    rpc SayHello(NoParam) returns(HelloResponse);
-
    //rpc for server side streaming 
    rpc SayHelloServerStreaming(NamesList) returns (stream HelloResponse);
-
-  // client streaming rpc 
-  rpc SayHelloClientStreaming(stream HelloRequest) returns (MessagesList);
-
-  //bidirectional streaming 
+   // client streaming rpc 
+   rpc SayHelloClientStreaming(stream HelloRequest) returns (MessagesList);
+   //bidirectional streaming 
    rpc SayHelloBidirectionalStreaming(stream HelloRequest) returns (stream HelloResponse); 
 }
 
@@ -32,9 +29,9 @@ message HelloRequest{
 }
 
 message NamesList{
-    repeated stream names = 1;
+    repeated string names = 1;
 }
 
-message MessageList {
+message MessagesList {
     repeated string messages = 1;
 }
