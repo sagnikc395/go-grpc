@@ -1,0 +1,40 @@
+// proto is the file that will define the contracts for the rpc calls
+syntax="proto3";
+
+//where to generate the proto files 
+option go_package="./proto";
+
+package greet_service;
+
+service GreetService{
+   //here we define our rpcs 
+   //normal requests / response cycle
+   rpc SayHello(NoParam) returns(HelloResponse);
+
+   //rpc for server side streaming 
+   rpc SayHelloServerStreaming(NamesList) returns (stream HelloResponse);
+
+  // client streaming rpc 
+  rpc SayHelloClientStreaming(stream HelloRequest) returns (MessagesList);
+
+  //bidirectional streaming 
+   rpc SayHelloBidirectionalStreaming(stream HelloRequest) returns (stream HelloResponse); 
+}
+
+message NoParam{};
+
+message HelloResponse{
+    string message = 1;
+}
+
+message HelloRequest{
+    string name = 1;
+}
+
+message NamesList{
+    repeated stream names = 1;
+}
+
+message MessageList {
+    repeated string messages = 1;
+}
